@@ -1,0 +1,25 @@
+dialog {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  border: none;
+  pointer-events: all !important;
+  padding: 0;
+  font-family: Arial,sans-serif;
+  line-height: 1.6;
+  background-color: #f9fafb;
+  color: #262626;
+  max-width: min(calc(100vw - 4em), 50em);
+  max-height: calc(100vh - 4em);
+  margin-top: 2em;
+  font-size: 16px;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &::backdrop {
+    -webkit-backdrop-filter: blur(6px) grayscale(75%) brightness(60%);
+    backdrop-filter: blur(6px) grayscale(75%) brightness(60%);
+  }
+}
