@@ -53,6 +53,7 @@ dialog {
     margin: 0;
     padding: 0 0 var(--padding-y) 0;
     list-style-type: none;
+    overflow-y: scroll;
 
     &:empty::after {
       content: "No results";

@@ -20,6 +20,7 @@ const list = dialog.lastChild as HTMLOListElement;
 const app = new App(bookmarks);
 app.addEventListener('updatelist', () => list.replaceChildren(...app.nodes));
 app.addEventListener('updateselection', () => form.action = app.selection?.url ?? '');
+app.addEventListener('updateselection', () => app.selection?.node.scrollIntoView({ block: 'nearest' }));
 app.addEventListener('bookmarkclick', () => dialog.close());
 app.query = input.value; // Set initial query (likely empty)
 
