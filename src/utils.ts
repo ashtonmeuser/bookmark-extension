@@ -1,3 +1,12 @@
+export type Bookmark = {
+  id: string;
+  title: string;
+  url: string;
+};
+
+// Modular arithmetic accounting for negative numbers
+export const mod = (i: number, n: number): number => ((i % n) + n) % n;
+
 // @ts-expect-error: Browser-agnostic browser interface
 export const browser = globalThis.browser ?? globalThis.chrome;
 

@@ -1,16 +1,17 @@
+import App from './App';
+import { node, Bookmark } from './utils';
+
+// External declarations (provided to wrapping function by extension background script)
 declare const id: string;
 declare const css: string;
-declare const bookmarks: BookmarkNode[];
-
-import App from './App';
-import { node } from './utils';
+declare const bookmarks: Bookmark[];
 
 if (document.getElementById(id)) throw undefined; // Modal already open
 
 // Define (shadow) DOM
 const host = node(`<div id="${id}" style="all:initial;position:fixed;width:0;height:0;opacity:0;"></div>`) as HTMLDivElement;
 const root = host.attachShadow({ mode: 'open' });
-const dialog = node('<dialog style="border-radius:1em;"><form method="get"><input type="text" onblur="this.focus()" autofocus></form><ol></ol></dialog>') as HTMLDialogElement;
+const dialog = node('<dialog><form method="get"><input type="text" placeholder="Search bookmarks" onblur="this.focus()" autofocus></form><ol></ol></dialog>') as HTMLDialogElement;
 const form = dialog.firstChild as HTMLFormElement;
 const input = form.firstChild as HTMLInputElement;
 const list = dialog.lastChild as HTMLOListElement;
@@ -19,6 +20,7 @@ const list = dialog.lastChild as HTMLOListElement;
 const app = new App(bookmarks);
 app.addEventListener('updatelist', () => list.replaceChildren(...app.nodes));
 app.addEventListener('updateselection', () => form.action = app.selection?.url ?? '');
+app.addEventListener('bookmarkclick', () => dialog.close());
 app.query = input.value; // Set initial query (likely empty)
 
 // Input events

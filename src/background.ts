@@ -1,4 +1,4 @@
-import { browser } from './utils';
+import { browser, Bookmark } from './utils';
 // @ts-expect-error: Content script (populated by esbuild)
 import content from './content.js';
 

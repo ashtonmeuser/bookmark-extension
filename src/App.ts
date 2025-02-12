@@ -1,13 +1,7 @@
-import { browser, node } from './utils';
+import { node, Bookmark, mod } from './utils';
 
-const createBookmarkNodes = (bookmarks: Bookmark[]): BookmarkNode[] => {
-  return bookmarks.map(bookmark => ({
-    ...bookmark,
-    node: node(`<li><a href="${bookmark.url}">${bookmark.title}</a></li>`) as HTMLElement,
-  }))
-};
-
-const mod = (i: number, n: number): number => ((i % n) + n) % n;
+type BookmarkNode = Bookmark & { node: HTMLElement };
+type AppEvent = 'updatelist' | 'updateselection' | 'bookmarkclick';
 
 export default class App extends EventTarget {
   private _bookmarks: Set<BookmarkNode>;
@@ -16,11 +10,9 @@ export default class App extends EventTarget {
 
   constructor(bookmarks: Bookmark[]) {
     super();
-    this._bookmarks = new Set(createBookmarkNodes(bookmarks));
-    this._updateActive();
-    this.addEventListener('updateselection', () => {
-      this.bookmarks.forEach((bookmark, index) => bookmark.node.classList.toggle('active', index === this._index));
-    });
+    this._bookmarks = this._initializeBookmarks(bookmarks);
+    this.addEventListener('updateselection', this._highlightActive);
+    this._dispatch('updateselection');
   }
 
   get bookmarks(): BookmarkNode[] {
@@ -38,9 +30,7 @@ export default class App extends EventTarget {
   set query(query: string | undefined) {
     this.index = 0;
     this._query = query;
-    // this._updateActive();
-    this.dispatchEvent(new Event('updatelist'));
-    this.dispatchEvent(new Event('updateselection'));
+    this._dispatch(['updatelist', 'updateselection']);
   }
 
   get index(): number {
@@ -49,8 +39,7 @@ export default class App extends EventTarget {
 
   set index(index: number) {
     this._index = index;
-    // this._updateActive();
-    this.dispatchEvent(new Event('updateselection'));
+    this._dispatch('updateselection');
   }
 
   next() {
@@ -61,7 +50,23 @@ export default class App extends EventTarget {
     this.index = mod(this._index - 1, this.bookmarks.length);
   }
 
-  private _updateActive() {
+  private _dispatch(event: AppEvent | AppEvent[]): void {
+    if (Array.isArray(event)) event.forEach(e => this._dispatch(e));
+    else this.dispatchEvent(new Event(event));
+  }
+
+  private _initializeBookmarks(bookmarks: Bookmark[]): Set<BookmarkNode> {
+    return new Set(bookmarks.map(bookmark => {
+      const bookmarkNode = {
+        ...bookmark,
+        node: node(`<li><a href="${bookmark.url}">${bookmark.title}</a></li>`) as HTMLElement,
+      };
+      (bookmarkNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('bookmarkclick');
+      return bookmarkNode;
+    }));
+  }
+
+  private _highlightActive(): void {
     this.bookmarks.forEach((bookmark, index) => bookmark.node.classList.toggle('active', index === this._index));
   }
 }
