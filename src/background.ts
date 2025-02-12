@@ -1,6 +1,6 @@
 import { browser } from './utils';
 // @ts-expect-error: Content script (populated by esbuild)
-import test from './content.js';
+import content from './content.js';
 
 const id = `bookmarklet-extension-${browser.runtime.id}`; // ID for modal dialog
 
@@ -13,42 +13,14 @@ function extractBookmarks(nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks
   return bookmarks;
 }
 
-async function getCurrentTab(): Promise<browser.tabs.Tab | undefined> {
-  return (await browser.tabs.query({ active: true, lastFocusedWindow: true }))[0];
-}
-
+// Default extension action injects content script
 browser.action.onClicked.addListener(async (tab) => {
   const bookmarks = extractBookmarks(await browser.bookmarks.getTree());
-  const css = await (await fetch(browser.runtime.getURL("style.min.css"))).text();
+  const css = await (await fetch(browser.runtime.getURL('style.min.css'))).text();
 
   browser.scripting.executeScript({
     target: { tabId: tab?.id! },
-    func: test,
+    func: content,
     args: [id, bookmarks, css],
   });
 });
-
-browser.runtime.onMessage.addListener(
-  async function (request: Navigation) {
-    switch (request.target) {
-      case '_self':
-        const tab = await getCurrentTab();
-        if (!tab) return;
-        browser.scripting.executeScript({
-          target: { tabId: tab.id! },
-          func: new Function('alert("hello")') as () => void,
-        });
-        // @ts-expect-error: Undefined tab index defaults to current tab
-        // browser.tabs.update(undefined, { url: request.url });
-        break;
-      case '_blank':
-        browser.tabs.create({ url: request.url });
-        break;
-      case '_top':
-      default:
-        browser.windows.create({ url: request.url });
-        break;
-    }
-    return true;
-  }
-);

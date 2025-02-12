@@ -7,58 +7,58 @@ const createBookmarkNodes = (bookmarks: Bookmark[]): BookmarkNode[] => {
   }))
 };
 
-export default class App {
-  private bookmarks: BookmarkNode[];
+const mod = (i: number, n: number): number => ((i % n) + n) % n;
+
+export default class App extends EventTarget {
+  private _bookmarks: Set<BookmarkNode>;
   private _query?: string;
   private _index: number = 0;
-  private _callback?: (app: App) => void;
 
-  constructor(bookmarks: Bookmark[], callback?: (app: App) => void) {
-    this.bookmarks = createBookmarkNodes(bookmarks);
-    this._callback = callback;
+  constructor(bookmarks: Bookmark[]) {
+    super();
+    this._bookmarks = new Set(createBookmarkNodes(bookmarks));
     this._updateActive();
-    this._callback?.(this);
+    this.addEventListener('updateselection', () => {
+      this.bookmarks.forEach((bookmark, index) => bookmark.node.classList.toggle('active', index === this._index));
+    });
   }
 
-  get filtered(): BookmarkNode[] {
-    return this._query ? this.bookmarks.filter(bookmark => bookmark.title.toLowerCase().includes(this._query!.toLowerCase())) : this.bookmarks;
+  get bookmarks(): BookmarkNode[] {
+    return this._query ? [...this._bookmarks].filter(bookmark => bookmark.title.toLowerCase().includes(this._query!.toLowerCase())) : [...this._bookmarks];
   }
 
   get nodes(): HTMLElement[] {
-    return this.filtered.map(bookmark => bookmark.node);
+    return this.bookmarks.map(bookmark => bookmark.node);
+  }
+
+  get selection(): BookmarkNode | undefined {
+    return this.bookmarks[this._index];
   }
 
   set query(query: string | undefined) {
     this.index = 0;
     this._query = query;
-    this._callback?.(this);
+    // this._updateActive();
+    this.dispatchEvent(new Event('updatelist'));
+    this.dispatchEvent(new Event('updateselection'));
+  }
+
+  get index(): number {
+    return this._index;
   }
 
   set index(index: number) {
     this._index = index;
-    this._updateActive();
-    // this.filtered[this._index]?.node.querySelector('a')?.focus();
+    // this._updateActive();
+    this.dispatchEvent(new Event('updateselection'));
   }
 
   next() {
-    this.index = (this._index + 1) % this.filtered.length;
+    this.index = mod(this._index + 1, this.bookmarks.length);
   }
 
   prev() {
-    this.index = (this._index - 1) % this.filtered.length;
-  }
-
-  async select(target: Navigation['target'] = '_self') {
-    const url = this.filtered[this._index]?.url;
-    if (!url) return;
-    // await browser.runtime.sendMessage({ url, target });
-    window.open(url, target);
-    // const event = new MouseEvent('click', {
-    //   bubbles: true,
-    //   cancelable: true,
-    //   view: window,
-    // });
-    // this.filtered[this._index]?.node.querySelector('a')?.dispatchEvent(event);
+    this.index = mod(this._index - 1, this.bookmarks.length);
   }
 
   private _updateActive() {
