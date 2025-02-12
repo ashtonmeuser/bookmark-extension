@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@types/firefox-webext-browser':
+        specifier: ^120.0.4
+        version: 120.0.4
       esbuild:
         specifier: ^0.24.2
         version: 0.24.2
@@ -164,6 +167,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@types/firefox-webext-browser@120.0.4':
+    resolution: {integrity: sha512-lBrpf08xhiZBigrtdQfUaqX1UauwZ+skbFiL8u2Tdra/rklkKadYmIzTwkNZSWtuZ7OKpFqbE2HHfDoFqvZf6w==}
+
   esbuild@0.24.2:
     resolution: {integrity: sha512-+9egpBW8I3CD5XPe0n6BfT5fxLzxrlDzqydF3aviG+9ni1lDC/OvMHcxqEFV0+LANZG5R1bFMWfUrjVsdwxJvA==}
     engines: {node: '>=18'}
@@ -245,6 +251,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.24.2':
     optional: true
+
+  '@types/firefox-webext-browser@120.0.4': {}
 
   esbuild@0.24.2:
     optionalDependencies:

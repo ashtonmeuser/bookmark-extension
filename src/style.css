@@ -22,4 +22,12 @@ dialog {
     -webkit-backdrop-filter: blur(6px) grayscale(75%) brightness(60%);
     backdrop-filter: blur(6px) grayscale(75%) brightness(60%);
   }
+
+  ul, ol {
+    margin: 0;
+  }
+}
+
+.active {
+  background-color: #0008;
 }
