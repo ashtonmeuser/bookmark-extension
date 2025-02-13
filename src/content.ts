@@ -45,7 +45,7 @@ input.addEventListener('keydown', async event => {
 
 // Dialog events
 dialog.addEventListener('click', (event) => { if (event.target instanceof HTMLDialogElement) event.target.close(); });
-dialog.addEventListener('close', () => host.remove());
+dialog.addEventListener('close', () => setTimeout(() => host.remove(), 200));
 
 // Assemble DOM
 root.appendChild(Object.assign(document.createElement('style'), { textContent: css }));

@@ -6,6 +6,7 @@
   --padding-y: 0.8rem;
   --padding-x: 1rem;
   --list-padding-y: calc(var(--padding-y) / 2);
+  --animation-duration: 0.2s;
 }
 
 dialog {
@@ -67,6 +68,10 @@ dialog {
     margin: 0;
     padding: 0;
 
+    &.active {
+      background-color: var(--highlight);
+    }
+
     &:not(:last-child) {
       margin-bottom: var(--list-padding-y);
     }
@@ -85,6 +90,10 @@ dialog {
   }
 }
 
-.active {
-  background-color: var(--highlight);
-}
+/* Animation */
+@keyframes open { from { opacity: 0; } to { opacity: 1; } }
+@keyframes close { from { opacity: 1; } to { opacity: 0; } }
+dialog { transition: display var(--animation-duration) allow-discrete, overlay var(--animation-duration) allow-discrete; animation: close var(--animation-duration) forwards; }
+dialog::backdrop { transition: display var(--animation-duration) allow-discrete, overlay var(--animation-duration) allow-discrete; animation: close var(--animation-duration) forwards; }
+dialog[open] { animation: open var(--animation-duration) forwards; }
+dialog[open]::backdrop { animation: open var(--animation-duration) forwards; }
