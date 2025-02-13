@@ -1,15 +1,10 @@
 {
     "compilerOptions": {
         "strict": true,
-        "target": "es6",
+        "target": "esnext",
         "moduleResolution": "bundler",
-        "module": "ES6",
-        "esModuleInterop": true,
-        "sourceMap": false,
+        "module": "esnext",
         "rootDir": "src",
-        "outDir": "dist/js",
-        "noEmitOnError": true,
-        "jsx": "react",
         "typeRoots": [ "node_modules/@types" ]
     }
 }
