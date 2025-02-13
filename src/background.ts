@@ -4,11 +4,22 @@ import content from './content.js';
 
 const id = `bookmarklet-extension-${browser.runtime.id}`; // ID for modal dialog
 
-// Create an array containing all bookmarks indexed by ID
-function extractBookmarks(nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks: Bookmark[] = [], path?: string) {
+const appendPath = (path: string | undefined, title: string) => {
+  if (title === 'Bookmarks Bar') return path; // Ignore root 'Bookmarks Bar' node
+  return path ? `${path}/${title}` : title;
+};
+
+// Create an array containing all bookmarks
+const extractBookmarks = (nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks: Bookmark[] = [], path?: string) => {
   for (const node of nodes) {
-    if (node.url) bookmarks.push({ id: node.id, title: node.title, path, url: node.url, bookmarklet: node.url.toLowerCase().startsWith('javascript:') });
-    if (node.children) extractBookmarks(node.children, bookmarks, path ? `${path}/${node.title}` : node.title);
+    if (node.url) bookmarks.push({
+      id: node.id,
+      title: node.title,
+      path,
+      url: node.url,
+      bookmarklet: node.url.toLowerCase().startsWith('javascript:'),
+    });
+    if (node.children) extractBookmarks(node.children, bookmarks, appendPath(path, node.title));
   }
   return bookmarks;
 }
