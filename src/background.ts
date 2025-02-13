@@ -5,10 +5,10 @@ import content from './content.js';
 const id = `bookmarklet-extension-${browser.runtime.id}`; // ID for modal dialog
 
 // Create an array containing all bookmarks indexed by ID
-function extractBookmarks(nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks: Bookmark[] = []) {
+function extractBookmarks(nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks: Bookmark[] = [], path?: string) {
   for (const node of nodes) {
-    if (node.url) bookmarks.push({ id: node.id, title: node.title, url: node.url });
-    if (node.children) extractBookmarks(node.children, bookmarks);
+    if (node.url) bookmarks.push({ id: node.id, title: node.title, path, url: node.url });
+    if (node.children) extractBookmarks(node.children, bookmarks, path ? `${path}/${node.title}` : node.title);
   }
   return bookmarks;
 }

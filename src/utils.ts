@@ -1,6 +1,7 @@
 export type Bookmark = {
   id: string;
   title: string;
+  path: string | undefined;
   url: string;
 };
 
