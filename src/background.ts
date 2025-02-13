@@ -5,7 +5,7 @@ import content from './content.tmp';
 const id = `bookmarklet-extension-${browser.runtime.id}`; // ID for modal dialog
 
 const appendPath = (path: string | undefined, title: string) => {
-  if (title === 'Bookmarks Bar') return path; // Ignore root 'Bookmarks Bar' node
+  if (!path && ['Bookmarks Bar', 'Bookmarks Menu'].includes(title)) return undefined; // Ignore root nodes
   return path ? `${path}/${title}` : title;
 };
 
