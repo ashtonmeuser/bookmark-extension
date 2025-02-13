@@ -3,15 +3,15 @@ import { node, Bookmark, mod } from './utils';
 type BookmarkNode = Bookmark & { node: HTMLElement };
 type AppEvent = 'updatelist' | 'updateselection' | 'bookmarkclick';
 
-export default class App extends EventTarget {
+export default class App {
   private _bookmarks: Set<BookmarkNode>;
   private _query?: string;
   private _index: number = 0;
+  private listeners = new Map<AppEvent, Set<() => void>>();
 
   constructor(bookmarks: Bookmark[]) {
-    super();
     this._bookmarks = this._initializeBookmarks(bookmarks);
-    this.addEventListener('updateselection', this._highlightActive);
+    this.on('updateselection', this._highlightActive.bind(this));
     this._dispatch('updateselection');
   }
 
@@ -50,9 +50,15 @@ export default class App extends EventTarget {
     this.index = mod(this._index - 1, this.bookmarks.length);
   }
 
+  on(event: AppEvent, callback: () => void) {
+    // TODO: Add ability to remove listeners
+    if (!this.listeners.has(event)) this.listeners.set(event, new Set());
+    this.listeners.get(event)!.add(callback);
+  }
+
   private _dispatch(event: AppEvent | AppEvent[]): void {
     if (Array.isArray(event)) event.forEach(e => this._dispatch(e));
-    else this.dispatchEvent(new Event(event));
+    else this.listeners.get(event)?.forEach(callback => callback());
   }
 
   private _initializeBookmarks(bookmarks: Bookmark[]): Set<BookmarkNode> {
