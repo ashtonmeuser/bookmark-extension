@@ -1,6 +1,6 @@
 import { browser, Bookmark } from './utils';
-// @ts-expect-error: Content script (populated by esbuild)
-import content from './content.js';
+// @ts-expect-error: Expect type error for bundled content script
+import content from './content.tmp';
 
 const id = `bookmarklet-extension-${browser.runtime.id}`; // ID for modal dialog
 
@@ -27,11 +27,10 @@ const extractBookmarks = (nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks
 // Default extension action injects content script
 browser.action.onClicked.addListener(async (tab) => {
   const bookmarks = extractBookmarks(await browser.bookmarks.getTree());
-  const css = await (await fetch(browser.runtime.getURL('style.min.css'))).text();
 
   browser.scripting.executeScript({
     target: { tabId: tab?.id! },
     func: content,
-    args: [id, bookmarks, css],
+    args: [id, bookmarks],
   });
 });

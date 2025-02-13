@@ -1,9 +1,10 @@
 import App from './App';
 import { node, Bookmark } from './utils';
+// @ts-expect-error: Load contents of minified CSS
+import css from './style.tmp.css';
 
 // External declarations (provided to wrapping function by extension background script)
 declare const id: string;
-declare const css: string;
 declare const bookmarks: Bookmark[];
 
 if (document.getElementById(id)) throw undefined; // Modal already open
