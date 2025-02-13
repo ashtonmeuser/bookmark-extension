@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Bookmarklet",
-  "description": "Execute a bookmarklet",
+  "name": "Omni Bookmark",
+  "description": "Easily search and open bookmarks",
   "version": "1.0",
   "permissions": ["bookmarks", "scripting", "activeTab", "storage"],
   "background": {
