@@ -29,7 +29,7 @@ input.addEventListener('input', event => app.query = (event.target as HTMLInputE
 input.addEventListener('keydown', async event => {
   if (event.key === 'Enter') {
     form.target = event.ctrlKey || event.metaKey ? '_blank' : event.shiftKey ? '_top' : '_self'; // Set target to open in current tab, new tab, new window
-    if (form.target !== '_self' && form.action.startsWith('javascript:')) return event.preventDefault(); // Prevent bookmarklets targeting new tab/window
+    if (form.target !== '_self' && app.selection?.bookmarklet) return event.preventDefault(); // Prevent bookmarklets targeting new tab/window
     if (window.navigator.userAgent.includes('Mac') && event.metaKey) form.submit(); // Command+Enter does not submit form on macOS
     dialog.close();
   }
