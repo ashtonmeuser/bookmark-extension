@@ -3,6 +3,7 @@ export type Bookmark = {
   title: string;
   path: string | undefined;
   url: string;
+  bookmarklet: boolean;
 };
 
 // Modular arithmetic accounting for negative numbers
