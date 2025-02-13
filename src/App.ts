@@ -67,6 +67,6 @@ export default class App extends EventTarget {
   }
 
   private _highlightActive(): void {
-    this.bookmarks.forEach((bookmark, index) => bookmark.node.classList.toggle('active', index === this._index));
+    this.bookmarks.forEach((bookmark, index) => bookmark.node.querySelector('a')?.classList.toggle('active', index === this._index));
   }
 }

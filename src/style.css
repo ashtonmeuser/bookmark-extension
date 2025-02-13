@@ -21,6 +21,7 @@ dialog {
   line-height: 1.6;
   background-color: var(--background);
   color: var(--primary);
+  width: 28em;
   max-width: min(calc(100vw - 4em), 50em);
   max-height: calc(100vh - 4em);
   margin-top: 2em;
@@ -67,24 +68,27 @@ dialog {
   li {
     margin: 0;
     padding: 0;
-
-    &.active {
-      background-color: var(--highlight);
-    }
-
-    &:not(:last-child) {
-      margin-bottom: var(--list-padding-y);
-    }
   }
 
   a {
-    display: inline-block;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2em;
     width: 100%;
     padding: 0 var(--padding-x);
     color: var(--primary);
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
-    &:hover {
+    &.active::after {
+      content: "Enter";
+      display: block;
+    }
+
+    &:hover, &.active {
       background-color: var(--highlight);
     }
   }
