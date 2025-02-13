@@ -65,7 +65,7 @@ export default class App {
     return new Set(bookmarks.map(bookmark => {
       const bookmarkNode = {
         ...bookmark,
-        node: node(`<li><a href="${bookmark.url}">${bookmark.title}</a></li>`) as HTMLElement,
+        node: node(`<li><a href="${bookmark.url}"><section><div>${bookmark.title}</div><div>${bookmark.path ?? ''}</div></section><div>test</div></a></li>`) as HTMLElement,
       };
       (bookmarkNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('bookmarkclick');
       return bookmarkNode;
