@@ -4,30 +4,30 @@ type BookmarkNode = Bookmark & { node: HTMLElement };
 type AppEvent = 'update' | 'select' | 'click';
 
 export default class ComboBox {
-  private _bookmarks: Set<BookmarkNode>;
+  private _items: Set<BookmarkNode>;
   private _query?: string;
   private _index: number = 0;
   private listeners = new Map<AppEvent, Set<() => void>>();
 
-  constructor(bookmarks: Bookmark[], itemFactory: (bookmark: Bookmark) => HTMLElement) {
-    this._bookmarks = this._initializeBookmarks(bookmarks, itemFactory);
+  constructor(items: Bookmark[], itemFactory: (item: Bookmark) => HTMLElement) {
+    this._items = this._initializeItems(items, itemFactory);
     this.on('select', this._highlightActive.bind(this));
     this._dispatch('select');
   }
 
-  get bookmarks(): BookmarkNode[] {
-    if (!this._query) return [...this._bookmarks];
+  get items(): BookmarkNode[] {
+    if (!this._query) return [...this._items];
     const subqueries = this._query.toLowerCase().trim().split(/\s+/);
     const properties: (keyof BookmarkNode)[] = ['title', 'path'];
-    return [...this._bookmarks].filter(bookmark => subqueries.every(query => properties.some(property => typeof bookmark[property] === 'string' && bookmark[property].toLowerCase().includes(query))));
+    return [...this._items].filter(item => subqueries.every(query => properties.some(property => typeof item[property] === 'string' && item[property].toLowerCase().includes(query))));
   }
 
   get nodes(): HTMLElement[] {
-    return this.bookmarks.map(bookmark => bookmark.node);
+    return this.items.map(item => item.node);
   }
 
   get selection(): BookmarkNode | undefined {
-    return this.bookmarks[this._index];
+    return this.items[this._index];
   }
 
   set query(query: string | undefined) {
@@ -46,11 +46,11 @@ export default class ComboBox {
   }
 
   next() {
-    this.index = mod(this._index + 1, this.bookmarks.length);
+    this.index = mod(this._index + 1, this.items.length);
   }
 
   prev() {
-    this.index = mod(this._index - 1, this.bookmarks.length);
+    this.index = mod(this._index - 1, this.items.length);
   }
 
   on(event: AppEvent, callback: () => void) {
@@ -64,15 +64,15 @@ export default class ComboBox {
     else this.listeners.get(event)?.forEach(callback => callback());
   }
 
-  private _initializeBookmarks(bookmarks: Bookmark[], itemFactory: (bookmark: Bookmark) => HTMLElement): Set<BookmarkNode> {
-    return new Set(bookmarks.map(bookmark => {
-      const bookmarkNode = { ...bookmark, node: itemFactory(bookmark) };
-      (bookmarkNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('click');
-      return bookmarkNode;
+  private _initializeItems(items: Bookmark[], itemFactory: (item: Bookmark) => HTMLElement): Set<BookmarkNode> {
+    return new Set(items.map(item => {
+      const itemNode = { ...item, node: itemFactory(item) };
+      (itemNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('click');
+      return itemNode;
     }));
   }
 
   private _highlightActive(): void {
-    this.bookmarks.forEach((bookmark, index) => bookmark.node.querySelector('a')?.classList.toggle('active', index === this._index));
+    this.items.forEach((item, index) => item.node.querySelector('a')?.classList.toggle('active', index === this._index));
   }
 }
