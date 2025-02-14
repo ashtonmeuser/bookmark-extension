@@ -1,12 +1,13 @@
 :host {
   --background: #f9fafb;
   --primary: #262626;
-  --secondary: #8f8f8f;
-  --highlight: #ff4b4b;
+  --secondary: color-mix(in srgb, var(--primary) 40%, transparent);
+  --highlight: #01ab8340;
+  --hover: #00000010;
   --dialog-p-x: 1em;
   --dialog-p-y: 0.8em;
   --list-p-x: 1em;
-  --list-p-y: 0.5em;
+  --list-p-y: 0;
   --animation-duration: 0.2s;
 }
 
@@ -18,7 +19,7 @@ dialog {
   border-radius: 0.5em;
   pointer-events: all !important;
   padding: 0;
-  font-family: Arial,sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
   background-color: var(--background);
   color: var(--primary);
@@ -79,7 +80,7 @@ dialog {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* height: 2em; */
+    height: 2.5em;
     width: 100%;
     padding: var(--list-p-y) var(--list-p-x);
     color: var(--primary);
@@ -88,21 +89,40 @@ dialog {
     &.active::after {
       content: "Enter";
       display: block;
+      flex-shrink: 0;
+      background-color: var(--background);
+      padding: 0.1em 0.4em;
+      border-radius: 0.5em;
+      color: var(--secondary);
+      font-weight: bold;
+      letter-spacing: -0.2;
     }
 
-    section {
-
-    }
-
-    div {
+    * {
       line-height: 1em;
-      text-decoration: none;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    &:hover, &.active {
+    .title {
+      font-weight: normal;
+    }
+
+    &.active .title {
+      font-weight: bold;
+    }
+
+    .path {
+      font-size: smaller;
+      color: var(--secondary);
+    }
+
+    &:hover {
+      background-color: var(--hover);
+    }
+
+    &.active {
       background-color: var(--highlight);
     }
   }
