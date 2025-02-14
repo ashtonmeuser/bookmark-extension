@@ -5,7 +5,7 @@
   "version": "1.0",
   "permissions": ["bookmarks", "scripting", "activeTab", "storage"],
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   },
   "action": {
     "default_icon": "icon.png"
