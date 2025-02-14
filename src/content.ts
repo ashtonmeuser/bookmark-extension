@@ -22,10 +22,10 @@ dialog.classList.add('animated');
 
 // App instance and event listeners
 const comboBox = new ComboBox(bookmarks);
-comboBox.on('updatelist', () => list.replaceChildren(...comboBox.nodes));
-comboBox.on('updateselection', () => form.action = comboBox.selection?.url ?? '');
-comboBox.on('updateselection', () => comboBox.selection?.node.scrollIntoView({ block: 'nearest' }));
-comboBox.on('bookmarkclick', () => dialog.close());
+comboBox.on('update', () => list.replaceChildren(...comboBox.nodes));
+comboBox.on('select', () => form.action = comboBox.selection?.url ?? '');
+comboBox.on('select', () => comboBox.selection?.node.scrollIntoView({ block: 'nearest' }));
+comboBox.on('click', () => dialog.close());
 comboBox.query = input.value; // Set initial query (likely empty)
 
 // Input events

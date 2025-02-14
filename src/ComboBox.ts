@@ -1,7 +1,7 @@
 import { node, Bookmark, mod } from './utils';
 
 type BookmarkNode = Bookmark & { node: HTMLElement };
-type AppEvent = 'updatelist' | 'updateselection' | 'bookmarkclick';
+type AppEvent = 'update' | 'select' | 'click';
 
 export default class ComboBox {
   private _bookmarks: Set<BookmarkNode>;
@@ -11,8 +11,8 @@ export default class ComboBox {
 
   constructor(bookmarks: Bookmark[]) {
     this._bookmarks = this._initializeBookmarks(bookmarks);
-    this.on('updateselection', this._highlightActive.bind(this));
-    this._dispatch('updateselection');
+    this.on('select', this._highlightActive.bind(this));
+    this._dispatch('select');
   }
 
   get bookmarks(): BookmarkNode[] {
@@ -32,7 +32,7 @@ export default class ComboBox {
   set query(query: string | undefined) {
     this.index = 0;
     this._query = query;
-    this._dispatch(['updatelist', 'updateselection']);
+    this._dispatch(['update', 'select']);
   }
 
   get index(): number {
@@ -41,7 +41,7 @@ export default class ComboBox {
 
   set index(index: number) {
     this._index = index;
-    this._dispatch('updateselection');
+    this._dispatch('select');
   }
 
   next() {
@@ -69,7 +69,7 @@ export default class ComboBox {
         ...bookmark,
         node: node(`<li><a href="${bookmark.url}"><section><div class="title">${bookmark.title}</div><div class="path">${bookmark.path ?? ''}</div></section></a></li>`) as HTMLElement,
       };
-      (bookmarkNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('bookmarkclick');
+      (bookmarkNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('click');
       return bookmarkNode;
     }));
   }
