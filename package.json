@@ -10,7 +10,8 @@
     "build:background": "esbuild src/background.ts --bundle --minify --format=cjs --outfile=build/background.js",
     "build:static": "cp static/* build/",
     "build": "pnpm build:background && pnpm build:static",
-    "postbuild": "rm src/*.tmp.*"
+    "postbuild": "rm src/*.tmp.*",
+    "build:firefox": "pnpm build && sed -i.bak 's/\"service_worker\": \"background.js\"/\"scripts\": [\"background.js\"]/g' build/manifest.json && rm build/manifest.json.bak"
   },
   "author": "ashtonmeuser",
   "license": "MIT",
