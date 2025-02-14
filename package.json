@@ -8,8 +8,9 @@
     "build:content": "esbuild src/content.ts --bundle --minify --format=cjs --outfile=src/content.tmp.js --loader:.css=text --banner:js=\"export default async (id, bookmarks, settings) => {\" --footer:js=\"};\"",
     "prebuild:background": "pnpm build:content",
     "build:background": "esbuild src/background.ts --bundle --minify --format=cjs --outfile=build/background.js",
+    "build:settings": "esbuild src/settings.ts --bundle --minify --format=cjs --outfile=build/settings.js",
     "build:static": "cp static/* build/",
-    "build": "pnpm build:background && pnpm build:static",
+    "build": "pnpm build:background && pnpm build:settings && pnpm build:static",
     "postbuild": "rm src/*.tmp.*",
     "build:firefox": "pnpm build && sed -i.bak 's/\"service_worker\": \"background.js\"/\"scripts\": [\"background.js\"]/g' build/manifest.json && rm build/manifest.json.bak"
   },

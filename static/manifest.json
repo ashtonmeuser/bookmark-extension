@@ -10,6 +10,7 @@
   "action": {
     "default_icon": "icon.png"
   },
+  "options_page": "settings.html",
   "commands": {
     "_execute_action": {
       "suggested_key": {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omni Bookmark Settings</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #333; }
+    </style>
+    <script src="./settings.js"></script>
+</head>
+<body>
+    <h1>Omni Bookmark Settings</h1>
+    <form>
+        <label for="filter">Display</label>
+        <select id="filter">
+            <option value="all">All</option>
+            <option value="bookmarks">Bookmarks</option>
+            <option value="bookmarklets">Bookmarklets</option>
+        </select>
+        <label for="dark">Dark Mode</label><input type="checkbox" id="dark">
+        <label for="animate">Animation</label><input type="checkbox" id="animate">
+    </form>
+</body>
+</html>
