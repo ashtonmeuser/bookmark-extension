@@ -17,6 +17,9 @@ const form = dialog.firstChild as HTMLFormElement;
 const input = form.firstChild as HTMLInputElement;
 const list = dialog.lastChild as HTMLOListElement;
 
+// TODO: Add animation setting
+// dialog.classList.add('animated');
+
 // App instance and event listeners
 const app = new App(bookmarks);
 app.on('updatelist', () => list.replaceChildren(...app.nodes));
