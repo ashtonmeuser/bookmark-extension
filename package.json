@@ -5,9 +5,9 @@
   "scripts": {
     "build:css": "esbuild src/style.css --outfile=src/style.tmp.css --minify",
     "prebuild:content": "pnpm build:css",
-    "build:content": "esbuild src/content.ts --bundle --format=cjs --outfile=src/content.tmp.js --loader:.css=text --banner:js=\"export default async (id, bookmarks) => {\" --footer:js=\"};\"",
+    "build:content": "esbuild src/content.ts --bundle --minify --format=cjs --outfile=src/content.tmp.js --loader:.css=text --banner:js=\"export default async (id, bookmarks) => {\" --footer:js=\"};\"",
     "prebuild:background": "pnpm build:content",
-    "build:background": "esbuild src/background.ts --bundle --format=cjs --outfile=build/background.js",
+    "build:background": "esbuild src/background.ts --bundle --minify --format=cjs --outfile=build/background.js",
     "build:static": "cp static/* build/",
     "build": "pnpm build:background && pnpm build:static",
     "postbuild": "rm src/*.tmp.*"

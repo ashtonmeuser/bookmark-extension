@@ -18,7 +18,7 @@ const input = form.firstChild as HTMLInputElement;
 const list = dialog.lastChild as HTMLOListElement;
 
 // TODO: Add animation setting
-// dialog.classList.add('animated');
+dialog.classList.add('animated');
 
 // App instance and event listeners
 const app = new App(bookmarks);
