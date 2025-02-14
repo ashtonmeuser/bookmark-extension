@@ -3,7 +3,7 @@ import { node, Bookmark, mod } from './utils';
 type BookmarkNode = Bookmark & { node: HTMLElement };
 type AppEvent = 'updatelist' | 'updateselection' | 'bookmarkclick';
 
-export default class App {
+export default class ComboBox {
   private _bookmarks: Set<BookmarkNode>;
   private _query?: string;
   private _index: number = 0;
