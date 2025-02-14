@@ -16,6 +16,6 @@ window.onload = async () => {
   filterInput.addEventListener('input', async (event) => await settings.set('filter', (event.target as HTMLInputElement).value));
   darkInput.addEventListener('input', async (event) => await settings.set('dark', (event.target as HTMLInputElement).checked));
   animateInput.addEventListener('input', async (event) => await settings.set('animate', (event.target as HTMLInputElement).checked));
-  highlightInput.addEventListener('input', async (event) => await settings.set('highlight', (event.target as HTMLInputElement).value));
+  highlightInput.addEventListener('change', async (event) => await settings.set('highlight', (event.target as HTMLInputElement).value));
   highlightInput.addEventListener('input', async (event) => highlightInput.style.setProperty('--highlight', (event.target as HTMLInputElement).value));
 }
