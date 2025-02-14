@@ -20,8 +20,11 @@ const list = dialog.lastChild as HTMLOListElement;
 // TODO: Add animation setting
 dialog.classList.add('animated');
 
+// List item DOM factory
+const factory = (bookmark: Bookmark) => node(`<li><a href="${bookmark.url}"><section><div class="title">${bookmark.title}</div><div class="path">${bookmark.path ?? ''}</div></section></a></li>`) as HTMLElement;
+
 // App instance and event listeners
-const comboBox = new ComboBox(bookmarks);
+const comboBox = new ComboBox(bookmarks, factory);
 comboBox.on('update', () => list.replaceChildren(...comboBox.nodes));
 comboBox.on('select', () => form.action = comboBox.selection?.url ?? '');
 comboBox.on('select', () => comboBox.selection?.node.scrollIntoView({ block: 'nearest' }));

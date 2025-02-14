@@ -9,8 +9,8 @@ export default class ComboBox {
   private _index: number = 0;
   private listeners = new Map<AppEvent, Set<() => void>>();
 
-  constructor(bookmarks: Bookmark[]) {
-    this._bookmarks = this._initializeBookmarks(bookmarks);
+  constructor(bookmarks: Bookmark[], itemFactory: (bookmark: Bookmark) => HTMLElement) {
+    this._bookmarks = this._initializeBookmarks(bookmarks, itemFactory);
     this.on('select', this._highlightActive.bind(this));
     this._dispatch('select');
   }
@@ -63,12 +63,9 @@ export default class ComboBox {
     else this.listeners.get(event)?.forEach(callback => callback());
   }
 
-  private _initializeBookmarks(bookmarks: Bookmark[]): Set<BookmarkNode> {
+  private _initializeBookmarks(bookmarks: Bookmark[], itemFactory: (bookmark: Bookmark) => HTMLElement): Set<BookmarkNode> {
     return new Set(bookmarks.map(bookmark => {
-      const bookmarkNode = {
-        ...bookmark,
-        node: node(`<li><a href="${bookmark.url}"><section><div class="title">${bookmark.title}</div><div class="path">${bookmark.path ?? ''}</div></section></a></li>`) as HTMLElement,
-      };
+      const bookmarkNode = { ...bookmark, node: itemFactory(bookmark) };
       (bookmarkNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('click');
       return bookmarkNode;
     }));
