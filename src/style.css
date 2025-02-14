@@ -1,9 +1,9 @@
 :host {
-  --accent: #01ab83;
+  /* --background, --primary, --highlight set by theme */
   --secondary: color-mix(in srgb, var(--primary) 40%, transparent);
-  --highlight: color-mix(in srgb, var(--background) 75%, var(--accent));
+  --active: color-mix(in srgb, var(--background) 75%, hsl(var(--highlight), 100%, 50%));
   --hover: color-mix(in srgb, var(--background) 93%, var(--primary));
-  --enter: color-mix(in srgb, var(--background), var(--highlight));
+  --enter: color-mix(in srgb, var(--background), var(--active));
   --dialog-p-x: 1em;
   --dialog-p-y: 0.8em;
   --list-p-x: 1em;
@@ -123,7 +123,7 @@ dialog {
     }
 
     &.active {
-      background-color: var(--highlight);
+      background-color: var(--active);
     }
   }
 }

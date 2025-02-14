@@ -10,6 +10,7 @@ export type Settings = {
   filter: 'all' | 'bookmarks' | 'bookmarklets';
   dark: boolean;
   animate: boolean;
+  highlight: number;
 };
 
 // Theme colors

@@ -23,6 +23,7 @@ dialog.classList.toggle('animated', settings.animate ?? true);
 const darkMode = settings.dark ?? false;
 host.style.setProperty('--background', darkMode ? theme.dark : theme.light);
 host.style.setProperty('--primary', darkMode ? theme.light : theme.dark);
+host.style.setProperty('--highlight', String(settings.highlight ?? 166));
 
 // List item DOM factory
 const factory = (bookmark: Bookmark) => node(`<li><a href="${bookmark.url}"><section><div class="title">${bookmark.title}</div><div class="path">${bookmark.path ?? ''}</div></section></a></li>`) as HTMLElement;
