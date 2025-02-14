@@ -24,7 +24,7 @@ dialog.classList.add('animated');
 const factory = (bookmark: Bookmark) => node(`<li><a href="${bookmark.url}"><section><div class="title">${bookmark.title}</div><div class="path">${bookmark.path ?? ''}</div></section></a></li>`) as HTMLElement;
 
 // App instance and event listeners
-const comboBox = new ComboBox(bookmarks, factory);
+const comboBox = new ComboBox(bookmarks, factory, ['title', 'path']);
 comboBox.on('update', () => list.replaceChildren(...comboBox.nodes));
 comboBox.on('select', () => form.action = comboBox.selection?.url ?? '');
 comboBox.on('select', () => comboBox.selection?.node.scrollIntoView({ block: 'nearest' }));

@@ -1,32 +1,33 @@
-import { node, Bookmark, mod } from './utils';
+import { mod } from './utils';
 
-type BookmarkNode = Bookmark & { node: HTMLElement };
+type ItemNode<T> = T & { node: HTMLElement };
 type AppEvent = 'update' | 'select' | 'click';
 
-export default class ComboBox {
-  private _items: Set<BookmarkNode>;
+export default class ComboBox<T, K extends (keyof T)[]> {
+  private _items: Set<ItemNode<T>>;
+  private _queryFields: K;
   private _query?: string;
   private _index: number = 0;
   private listeners = new Map<AppEvent, Set<() => void>>();
 
-  constructor(items: Bookmark[], itemFactory: (item: Bookmark) => HTMLElement) {
+  constructor(items: T[], itemFactory: (item: T) => HTMLElement, queryFields: K) {
     this._items = this._initializeItems(items, itemFactory);
+    this._queryFields = queryFields;
     this.on('select', this._highlightActive.bind(this));
     this._dispatch('select');
   }
 
-  get items(): BookmarkNode[] {
+  get items(): ItemNode<T>[] {
     if (!this._query) return [...this._items];
     const subqueries = this._query.toLowerCase().trim().split(/\s+/);
-    const properties: (keyof BookmarkNode)[] = ['title', 'path'];
-    return [...this._items].filter(item => subqueries.every(query => properties.some(property => typeof item[property] === 'string' && item[property].toLowerCase().includes(query))));
+    return [...this._items].filter(item => subqueries.every(query => this._queryFields.some(property => typeof item[property] === 'string' && item[property].toLowerCase().includes(query))));
   }
 
   get nodes(): HTMLElement[] {
     return this.items.map(item => item.node);
   }
 
-  get selection(): BookmarkNode | undefined {
+  get selection(): ItemNode<T> | undefined {
     return this.items[this._index];
   }
 
@@ -64,7 +65,7 @@ export default class ComboBox {
     else this.listeners.get(event)?.forEach(callback => callback());
   }
 
-  private _initializeItems(items: Bookmark[], itemFactory: (item: Bookmark) => HTMLElement): Set<BookmarkNode> {
+  private _initializeItems(items: T[], itemFactory: (item: T) => HTMLElement): Set<ItemNode<T>> {
     return new Set(items.map(item => {
       const itemNode = { ...item, node: itemFactory(item) };
       (itemNode.node.firstChild as HTMLAnchorElement).onclick = () => this._dispatch('click');
