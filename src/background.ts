@@ -1,4 +1,4 @@
-import { browser, Bookmark } from './utils';
+import { browser, Bookmark, settings } from './utils';
 // @ts-expect-error: Expect type error for bundled content script
 import content from './content.tmp';
 
@@ -31,6 +31,6 @@ browser.action.onClicked.addListener(async (tab) => {
   browser.scripting.executeScript({
     target: { tabId: tab?.id! },
     func: content,
-    args: [id, bookmarks],
+    args: [id, bookmarks, await settings.get()],
   });
 });

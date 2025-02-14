@@ -6,6 +6,12 @@ export type Bookmark = {
   bookmarklet: boolean;
 };
 
+export type Settings = {
+  filter: 'all' | 'bookmarks' | 'bookmarklets';
+  dark: boolean;
+  animate: boolean;
+};
+
 // Theme colors
 export const theme = { light: '#f9fafb', dark: '#262626' };
 
@@ -20,10 +26,11 @@ export const node = (v: Node | string): Node => typeof v === 'string' ? document
 
 // Getter & setter for stored settings
 export const settings = {
-  async get(key: string) {
-    return browser.storage.sync.get(key);
+  async get(key?: keyof Settings) {
+    if (!key) return await browser.storage.sync.get();
+    return (await browser.storage.sync.get(key))[key];
   },
-  async set(key: string, value: any) {
+  async set(key: keyof Settings, value: any) {
     await browser.storage.sync.set({ [key]: value });
   },
 };
