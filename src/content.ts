@@ -19,8 +19,8 @@ const input = form.firstChild as HTMLInputElement;
 const list = dialog.lastChild as HTMLOListElement;
 
 // Theme
-dialog.classList.add('animated'); // TODO: Add animation setting
-const darkMode = true; // TODO: Add dark mode setting
+dialog.classList.toggle('animated', settings.animate ?? true);
+const darkMode = settings.dark ?? false;
 host.style.setProperty('--background', darkMode ? theme.dark : theme.light);
 host.style.setProperty('--primary', darkMode ? theme.light : theme.dark);
 

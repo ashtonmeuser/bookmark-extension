@@ -1,16 +1,17 @@
-import { browser, Bookmark, settings } from './utils';
+import { browser, Bookmark, Settings, settings } from './utils';
 // @ts-expect-error: Expect type error for bundled content script
 import content from './content.tmp';
 
 const id = `bookmarklet-extension-${browser.runtime.id}`; // ID for modal dialog
 
+// Concatenate path nodes (ignoring root nodes)
 const appendPath = (path: string | undefined, title: string) => {
   if (!path && ['Bookmarks Bar', 'Bookmarks Menu'].includes(title)) return undefined; // Ignore root nodes
   return path ? `${path}/${title}` : title;
 };
 
 // Create an array containing all bookmarks
-const extractBookmarks = (nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks: Bookmark[] = [], path?: string) => {
+const extractBookmarks = (nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks: Bookmark[] = [], path?: string): Bookmark[] => {
   for (const node of nodes) {
     if (node.url) bookmarks.push({
       id: node.id,
@@ -24,13 +25,22 @@ const extractBookmarks = (nodes: browser.bookmarks.BookmarkTreeNode[], bookmarks
   return bookmarks;
 }
 
+// Filter bookmarks by type
+const filterBookmarks = (bookmarks: Bookmark[], filter?: Settings['filter']): Bookmark[] => {
+  if (filter === 'bookmarks') return bookmarks.filter(bookmark => !bookmark.bookmarklet);
+  if (filter === 'bookmarklets') return bookmarks.filter(bookmark => bookmark.bookmarklet);
+  return bookmarks;
+}
+
 // Default extension action injects content script
 browser.action.onClicked.addListener(async (tab) => {
   const bookmarks = extractBookmarks(await browser.bookmarks.getTree());
+  const allSettings = await settings.get();
+  const filtered = filterBookmarks(bookmarks, allSettings.filter);
 
   browser.scripting.executeScript({
     target: { tabId: tab?.id! },
     func: content,
-    args: [id, bookmarks, await settings.get()],
+    args: [id, filtered, allSettings],
   });
 });
