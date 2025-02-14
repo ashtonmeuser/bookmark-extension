@@ -1,9 +1,9 @@
 :host {
-  --background: #f9fafb;
-  --primary: #262626;
+  --accent: #01ab83;
   --secondary: color-mix(in srgb, var(--primary) 40%, transparent);
-  --highlight: #01ab8340;
-  --hover: #00000010;
+  --highlight: color-mix(in srgb, var(--background) 75%, var(--accent));
+  --hover: color-mix(in srgb, var(--background) 93%, var(--primary));
+  --enter: color-mix(in srgb, var(--background), var(--highlight));
   --dialog-p-x: 1em;
   --dialog-p-y: 0.8em;
   --list-p-x: 1em;
@@ -90,7 +90,7 @@ dialog {
       content: "Enter";
       display: block;
       flex-shrink: 0;
-      background-color: var(--background);
+      background-color: var(--enter);
       padding: 0.1em 0.4em;
       border-radius: 0.5em;
       color: var(--secondary);

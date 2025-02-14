@@ -6,6 +6,9 @@ export type Bookmark = {
   bookmarklet: boolean;
 };
 
+// Theme colors
+export const theme = { light: '#f9fafb', dark: '#262626' };
+
 // Modular arithmetic accounting for negative numbers
 export const mod = (i: number, n: number): number => ((i % n) + n) % n;
 

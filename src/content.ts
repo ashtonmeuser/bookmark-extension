@@ -1,5 +1,5 @@
 import ComboBox from './ComboBox';
-import { node, Bookmark } from './utils';
+import { node, Bookmark, theme } from './utils';
 // @ts-expect-error: Load contents of minified CSS
 import css from './style.tmp.css';
 
@@ -17,8 +17,11 @@ const form = dialog.firstChild as HTMLFormElement;
 const input = form.firstChild as HTMLInputElement;
 const list = dialog.lastChild as HTMLOListElement;
 
-// TODO: Add animation setting
-dialog.classList.add('animated');
+// Theme
+dialog.classList.add('animated'); // TODO: Add animation setting
+const darkMode = true; // TODO: Add dark mode setting
+host.style.setProperty('--background', darkMode ? theme.dark : theme.light);
+host.style.setProperty('--primary', darkMode ? theme.light : theme.dark);
 
 // List item DOM factory
 const factory = (bookmark: Bookmark) => node(`<li><a href="${bookmark.url}"><section><div class="title">${bookmark.title}</div><div class="path">${bookmark.path ?? ''}</div></section></a></li>`) as HTMLElement;
