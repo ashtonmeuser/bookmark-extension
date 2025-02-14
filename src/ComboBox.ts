@@ -18,7 +18,8 @@ export default class ComboBox {
   get bookmarks(): BookmarkNode[] {
     if (!this._query) return [...this._bookmarks];
     const subqueries = this._query.toLowerCase().trim().split(/\s+/);
-    return [...this._bookmarks].filter(bookmark => subqueries.every(query => bookmark.title.toLowerCase().includes(query) || bookmark.path?.toLowerCase().includes(query)));
+    const properties: (keyof BookmarkNode)[] = ['title', 'path'];
+    return [...this._bookmarks].filter(bookmark => subqueries.every(query => properties.some(property => typeof bookmark[property] === 'string' && bookmark[property].toLowerCase().includes(query))));
   }
 
   get nodes(): HTMLElement[] {
