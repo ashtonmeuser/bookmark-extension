@@ -42,5 +42,5 @@ browser.action.onClicked.addListener(async (tab) => {
     target: { tabId: tab?.id! },
     func: content,
     args: [id, filtered, allSettings],
-  });
+  }, () => browser.runtime.lastError); // Read last error to "catch" it (see https://stackoverflow.com/a/45603880)
 });
