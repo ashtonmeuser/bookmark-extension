@@ -16,7 +16,9 @@ export default class App {
   }
 
   get bookmarks(): BookmarkNode[] {
-    return this._query ? [...this._bookmarks].filter(bookmark => bookmark.title.toLowerCase().includes(this._query!.toLowerCase())) : [...this._bookmarks];
+    if (!this._query) return [...this._bookmarks];
+    const subqueries = this._query.toLowerCase().trim().split(/\s+/);
+    return [...this._bookmarks].filter(bookmark => subqueries.every(query => bookmark.title.toLowerCase().includes(query) || bookmark.path?.toLowerCase().includes(query)));
   }
 
   get nodes(): HTMLElement[] {
