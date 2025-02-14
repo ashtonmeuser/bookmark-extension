@@ -22,5 +22,10 @@
         "default": "Ctrl+Shift+Y"
       }
     }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "omnibookmark@ashtonmeuser.com"
+    }
   }
 }
