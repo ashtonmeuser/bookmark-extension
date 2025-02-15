@@ -660,6 +660,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Omni Bookmark Extension";
@@ -675,7 +676,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark.Extension";
 				PRODUCT_NAME = "Omni Bookmark Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -690,6 +691,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Omni Bookmark Extension";
@@ -705,7 +707,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark.Extension";
 				PRODUCT_NAME = "Omni Bookmark Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -723,6 +725,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Omni Bookmark";
@@ -743,7 +746,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark";
 				PRODUCT_NAME = "Omni Bookmark";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -759,6 +762,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Omni Bookmark";
@@ -779,7 +783,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark";
 				PRODUCT_NAME = "Omni Bookmark";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -795,6 +799,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Omni Bookmark.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
@@ -811,7 +816,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark.Extension";
 				PRODUCT_NAME = "Omni Bookmark Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -826,6 +831,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Omni Bookmark.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
@@ -842,7 +848,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark.Extension";
 				PRODUCT_NAME = "Omni Bookmark Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -859,6 +865,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Omni Bookmark.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
@@ -877,7 +884,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark";
 				PRODUCT_NAME = "Omni Bookmark";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -893,6 +900,7 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Omni Bookmark.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9EJMY5Z83L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (App)/Info.plist";
@@ -911,7 +919,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Omni-Bookmark";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashtonmeuser.Omni-Bookmark";
 				PRODUCT_NAME = "Omni Bookmark";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
