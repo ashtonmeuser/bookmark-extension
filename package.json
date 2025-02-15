@@ -1,7 +1,5 @@
 {
   "name": "bookmark-extension",
-  "version": "0.0.1",
-  "description": "",
   "scripts": {
     "build:css": "esbuild src/style.css --outfile=src/style.tmp.css --minify",
     "prebuild:content": "pnpm build:css",
