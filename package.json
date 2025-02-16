@@ -3,7 +3,7 @@
   "scripts": {
     "build:css": "esbuild src/style.css --outfile=src/style.tmp.css --minify",
     "prebuild:content": "pnpm build:css",
-    "build:content": "esbuild src/content.ts --bundle --minify --format=cjs --outfile=src/content.tmp.js --loader:.css=text --banner:js=\"export default async (id, bookmarks, settings) => {\" --footer:js=\"};\"",
+    "build:content": "esbuild src/content.ts --bundle --minify --format=cjs --outfile=src/content.tmp.js --loader:.css=text --loader:.svg=text --banner:js=\"export default async (id, bookmarks, settings) => {\" --footer:js=\"};\"",
     "prebuild:background": "pnpm build:content",
     "build:background": "esbuild src/background.ts --bundle --minify --format=cjs --outfile=build/background.js",
     "build:settings": "esbuild src/settings.ts --bundle --minify --format=cjs --outfile=build/settings.js",

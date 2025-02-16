@@ -1,7 +1,9 @@
 import ComboBox from './ComboBox';
-import { node, Bookmark, theme, Settings } from './utils';
+import { node, Bookmark, theme, Settings, browser } from './utils';
 // @ts-expect-error: Load contents of minified CSS
 import css from './style.tmp.css';
+// @ts-expect-error: Load contents of static SVG
+import svg from '../static/settings.svg';
 
 // External declarations (provided to wrapping function by extension background script)
 declare const id: string;
@@ -13,10 +15,11 @@ if (document.getElementById(id)) throw undefined; // Modal already open
 // Define (shadow) DOM
 const host = node(`<div id="${id}" style="all:initial;position:fixed;width:0;height:0;opacity:0;"></div>`) as HTMLDivElement;
 const root = host.attachShadow({ mode: 'open' });
-const dialog = node('<dialog><form method="get"><input type="text" placeholder="Search bookmarks" onblur="this.focus()" autofocus></form><ol></ol></dialog>') as HTMLDialogElement;
+const dialog = node(`<dialog><form method="get"><input type="text" placeholder="Search bookmarks" onblur="this.focus()" autofocus><button type="button">${svg}</button></form><ol></ol></dialog>`) as HTMLDialogElement;
 const form = dialog.firstChild as HTMLFormElement;
 const input = form.firstChild as HTMLInputElement;
 const list = dialog.lastChild as HTMLOListElement;
+const options = form.lastChild as HTMLButtonElement;
 
 // Theme
 dialog.classList.toggle('animated', settings.animate ?? true);
@@ -54,6 +57,9 @@ input.addEventListener('keydown', async event => {
     event.preventDefault();
   }
 });
+
+// Options button
+options.addEventListener('click', () => browser.runtime.sendMessage('options'));
 
 // Dialog events
 dialog.addEventListener('click', (event) => { if (event.target instanceof HTMLDialogElement) event.target.close(); });

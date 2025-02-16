@@ -45,3 +45,7 @@ browser.action.onClicked.addListener(async (tab) => {
   // @ts-expect-error: Chrome optionally takes a callback that we'll use to ignore spurious errors
   }, () => browser.runtime.lastError); // Read last error to "catch" it (see https://stackoverflow.com/a/45603880)
 });
+
+browser.runtime.onMessage.addListener(request => {
+  if (request == 'options') browser.runtime.openOptionsPage();
+});
