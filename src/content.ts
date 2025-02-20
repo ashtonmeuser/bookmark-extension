@@ -3,7 +3,7 @@ import { node, Bookmark, theme, Settings, browser } from './utils';
 // @ts-expect-error: Load contents of minified CSS
 import css from './style.tmp.css';
 // @ts-expect-error: Load contents of static SVG
-import svg from '../static/settings.svg';
+import svg from '../static/options.svg';
 
 // External declarations (provided to wrapping function by extension background script)
 declare const id: string;
