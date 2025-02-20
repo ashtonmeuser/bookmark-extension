@@ -10,7 +10,8 @@
     "build:static": "cp static/* build/",
     "build": "pnpm build:background && pnpm build:settings && pnpm build:static",
     "postbuild": "rm src/*.tmp.*",
-    "build:firefox": "pnpm build && sed -i.bak 's/\"service_worker\": \"background.js\"/\"scripts\": [\"background.js\"]/g' build/manifest.json && rm build/manifest.json.bak"
+    "build:firefox": "pnpm build && sed -i.bak 's/\"service_worker\": \"background.js\"/\"scripts\": [\"background.js\"]/g' build/manifest.json && rm build/manifest.json.bak",
+    "archive": "cd build &&zip -r ../build.zip *"
   },
   "author": "ashtonmeuser",
   "license": "MIT",

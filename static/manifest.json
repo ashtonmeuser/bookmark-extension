@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Omni Bookmark",
-  "description": "Easily search and open bookmarks",
-  "version": "0.0.1",
+  "description": "Easily search and open bookmarks and bookmarklets",
+  "version": "0.0.2",
   "permissions": ["bookmarks", "scripting", "activeTab", "storage"],
   "background": {
     "service_worker": "background.js"
